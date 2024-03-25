@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import rollsRoyce from '../assets/cars/rollsRoyce.glb';
+import rollsRoyce from '../assets/cars/sport.glb';
 
 
 const rollsRoyceConstnts = {
@@ -14,7 +14,7 @@ const rollsRoyceConstnts = {
     },
     wheels: [],
     controls: {
-        accelerateForce: 15,
+        accelerateForce: 50,
         brakeForce: 1,
         steerAngle:  Math.PI / 4
     }

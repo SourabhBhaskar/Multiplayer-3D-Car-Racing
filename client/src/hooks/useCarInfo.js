@@ -16,7 +16,7 @@ function useCarInfo(constants) {
         const position = mesh.position;
         const size = getBoundingBoxFromScene(mesh);
         switch(mesh.name){
-            case 'chassisbody':
+            case 'chassis':
                 chassis.size = size;
                 chassis.mesh = mesh;
             case 'flwheel':

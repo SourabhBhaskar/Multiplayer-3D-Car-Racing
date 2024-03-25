@@ -17,21 +17,6 @@ function Map({ map }) {
 
 
 
-// function Map({ map }) {
-//   const model = useLoader(GLTFLoader, map);
-//   console.log(model)
-//   return(
-//     <RigidBody type='fixed' rotation={[-Math.PI/2, 0, 0]}>
-//       <mesh>
-//         <planeGeometry args={[100, 100]} />
-//         <meshNormalMaterial />
-//       </mesh>
-//     </RigidBody>
-
-//   )
-// }
-
-
 export default Map;
 
 

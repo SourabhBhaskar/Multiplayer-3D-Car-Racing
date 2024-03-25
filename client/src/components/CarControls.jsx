@@ -1,8 +1,39 @@
 import React from 'react';
-import { KeyboardControls } from '@react-three/drei';
+import * as THREE from 'three';
+import { useFrame } from '@react-three/fiber';
+import { KeyboardControls, useKeyboardControls } from '@react-three/drei';
 
 
-function CarControls({ children }) {
+const Controls = ({ carController, carInfo }) => {
+    const [, getKeyboardControls] = useKeyboardControls();
+    useFrame((state, delta) => {
+        if (!carController.current || !carInfo) return
+
+        const controls = getKeyboardControls();
+        const controller = carController.current;
+    
+        const engineForce = Number(controls.forward || -controls.back) * carInfo.controls.accelerateForce - Number(controls.back);
+        controller.setWheelEngineForce(0, engineForce);
+        controller.setWheelEngineForce(1, engineForce);
+
+        const wheelBrake = Number(controls.brake) * carInfo.controls.brakeForce;
+        controller.setWheelBrake(0, wheelBrake);
+        controller.setWheelBrake(1, wheelBrake);
+        controller.setWheelBrake(2, wheelBrake);
+        controller.setWheelBrake(3, wheelBrake);
+
+        const currentSteering = controller.wheelSteering(0) || 0;
+        const steerDirection = Number(controls.left) - Number(controls.right);
+        const steering = THREE.MathUtils.lerp(currentSteering, carInfo.controls.steerAngle * steerDirection, 0.5);
+        controller.setWheelSteering(0, steering);
+        controller.setWheelSteering(1, steering);
+    })
+
+    return <></>
+}
+
+
+function CarControls({ carController, carInfo }) {
     const controls = [
         { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
         { name: 'back', keys: ['ArrowDown', 'KeyS'] },
@@ -14,7 +45,7 @@ function CarControls({ children }) {
 
     return (
         <KeyboardControls map={controls}>
-            { children }
+            <Controls carController={carController} carInfo={carInfo} />
         </KeyboardControls>
     )
 }

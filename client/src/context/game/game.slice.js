@@ -5,13 +5,19 @@ import map1 from '../../assets/maps/map1.glb';
 const gameSlice = createSlice({
     name: 'gameSlice',
     initialState: {
-        map: {},
-        main_car: {},
-        other_car: {}
+        maps: {
+            beach: null,
+            dessert: null,
+            terrin: null
+        },
+        cars: {
+            
+        },
     },
     reducers: {
-        setMainCar: () => {},
-        
+        setMainCar: () => {
+
+        },
     }
 })
 

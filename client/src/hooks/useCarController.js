@@ -8,7 +8,7 @@ const _wheelSteeringQuat = new THREE.Quaternion()
 const _wheelRotationQuat = new THREE.Quaternion()
 
 
-export function useCar(chassisRef, wheelsRef, wheelsInfo){
+export function useCarController(chassisRef, wheelsRef, wheelsInfo){
     const { world } = useRapier();
     const car = useRef(null);
 
@@ -32,7 +32,6 @@ export function useCar(chassisRef, wheelsRef, wheelsInfo){
         })
 
         car.current = vehicle;
-
         return () => {
             car.current = undefined;
             world.removeVehicleController(vehicle);
@@ -68,4 +67,4 @@ export function useCar(chassisRef, wheelsRef, wheelsInfo){
 }
 
 
-export default useCar;
+export default useCarController;
