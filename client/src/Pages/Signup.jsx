@@ -1,9 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 function Signup() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  }
+
   return (
-    <div>Signup</div>
+    <form onSubmit={handleSubmit}>
+      
+    </form>
   )
 }
 
-export default Signup
+export default Signup;

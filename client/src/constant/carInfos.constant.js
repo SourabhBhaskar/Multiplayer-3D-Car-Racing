@@ -1,9 +1,10 @@
 import * as THREE from 'three';
-import rollsRoyce from '../assets/cars/sport.glb';
 
+
+export let zipFile = null;
 
 const rollsRoyceConstnts = {
-    model: rollsRoyce,
+    model: '',
     chassis: {},
     wheelOptions: {
         axleCs: new THREE.Vector3(0, 0, -1),
