@@ -1,18 +1,22 @@
-import { useLoader } from "@react-three/fiber";
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { useMemo } from "react";
+import { useGLTF } from "@react-three/drei";
+import _ from 'lodash';
 import getBoundingBoxFromScene from "../utils/getBoundingBoxFromScene.util";
+import carModels from "../constant/carModels";
+import carInfos from '../constant/carInfos';
 
 
-function useCarInfo(constants) {
-    const gltf = useLoader(GLTFLoader, constants.model);
-    const meshes = gltf.scene.children;
+function useCarInfo(carName){
+    const carInfo = _.cloneDeep((carInfos[carName] || carInfos.defaultInfo));
+    const gltf = useGLTF(carModels[carName]);
+    const scene = useMemo(() => gltf.scene.clone(), [carName]);
 
     const chassis = {};
     const flwheel = {};
     const frwheel = {};
     const blwheel = {};
     const brwheel = {};
-    meshes.forEach(mesh => {
+    scene.children.forEach(mesh => {
         const position = mesh.position;
         const size = getBoundingBoxFromScene(mesh);
         switch(mesh.name){
@@ -45,21 +49,21 @@ function useCarInfo(constants) {
                 break;
         }
     });
-    
-    const carInfo = {
-        ...constants,
+
+    const updatedCarInfo = {
+        ...carInfo,
         chassis: { ...chassis },
         wheels: [
-           { ...flwheel, ...constants.wheelOptions },
-           { ...frwheel, ...constants.wheelOptions },
-           { ...blwheel, ...constants.wheelOptions },
-           { ...brwheel, ...constants.wheelOptions },
+           { ...flwheel, ...carInfo.wheelOptions },
+           { ...frwheel, ...carInfo.wheelOptions },
+           { ...blwheel, ...carInfo.wheelOptions },
+           { ...brwheel, ...carInfo.wheelOptions },
         ],
     }
 
-    return carInfo;
+    const memoIzedInfo = useMemo(() => updatedCarInfo, [carName]);
+    return memoIzedInfo;
 }
 
 
 export default useCarInfo;
-
