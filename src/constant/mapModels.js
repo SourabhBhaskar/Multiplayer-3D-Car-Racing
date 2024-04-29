@@ -1,5 +1,5 @@
 import beach from '../assets/maps/models/beach.glb';
-import dessert from '../assets/maps/models/dessert3.glb';
+import dessert from '../assets/maps/models/dessert.glb';
 import terrin from '../assets/maps/models/terrin.glb';
 
 
